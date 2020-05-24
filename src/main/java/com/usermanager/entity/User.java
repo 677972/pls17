@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Setter
 @Getter
@@ -21,4 +22,8 @@ public class User {
 
     @Column(name = "last_name")
     private String userLastName;
+
+    @Column(name = "age")
+    private String userAge;
+
 }
