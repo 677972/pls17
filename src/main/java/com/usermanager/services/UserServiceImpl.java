@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -53,13 +54,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public static Comparator<User> getUserByAge() {
-        Comparator<User> comp = new Comparator<User>() {
+        Comparator<User> comparator = new Comparator<User>() {
             @Override
             public int compare(User s1, User s2) {
                 return s1.getUserAge().compareTo(s2.getUserAge());
             }
         };
-        return comp;
+        return comparator;
     }
 
     @Override
@@ -74,4 +75,27 @@ public class UserServiceImpl implements UserService {
         return result;
     };
 
+    @Override
+    public List<User> getUsersStreamSortAgeAsc() {
+        List<User> list = new ArrayList(userRepository.findAll());
+        return list.stream()
+                .sorted(Comparator.comparing(User::getUserAge))  // .reversed()) - для Desc (убывание)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getUsersStreamFilterFirstName() {
+        List<User> list = new ArrayList(userRepository.findAll());
+        return list.stream()
+                .filter(user -> user.getUserFirstName().equals("Stas"))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> StreamFilterByFirstName(String userFirstName) {
+        List<User> list = new ArrayList(userRepository.findAll());
+        return list.stream()
+                .filter(user -> user.getUserFirstName().equals(userFirstName))
+                .collect(Collectors.toList());
+    }
 }

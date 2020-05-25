@@ -53,4 +53,15 @@ public class UserController {
     @GetMapping ("/HashMap")
     public HashMap<String, User> getUsersHashMap() {return userServiceImpl.getUsersHashMap();}
 
+    @GetMapping ("/StreamSortAgeAsc")
+    public List<User> getUsersStreamSortAge() {return userServiceImpl.getUsersStreamSortAgeAsc();}
+
+    @GetMapping ("/StreamFilterFirstName")
+    public List<User> getUsersStreamFilterFirstName() {return userServiceImpl.getUsersStreamFilterFirstName();}
+
+    @GetMapping(value = "/StreamFilterByFirstName/{userFirstName}")
+    public List<User> StreamFilterByFirstName(@PathVariable("userFirstName") String userFirstName) {
+        return userServiceImpl.StreamFilterByFirstName(userFirstName);
+    }
+
 }

@@ -23,4 +23,10 @@ public interface UserService {
 
     HashMap<String, User> getUsersHashMap();
 
+    List<User> getUsersStreamSortAgeAsc();
+
+    List<User> getUsersStreamFilterFirstName();
+
+    List<User> StreamFilterByFirstName(String userFirstName);
+
 }
